@@ -6,11 +6,20 @@ deposition/capacity bookkeeping shared by history-dependent biases. The
 :mod:`~torch_sim.enhanced_sampling.metadynamics` module implements bias
 potentials (:class:`LogfermiWall`, :class:`RMSDCV`) that compose with any MLIP
 through :class:`~torch_sim.models.interface.SumModel`. The
+:mod:`~torch_sim.enhanced_sampling.afir` module implements batched AFIR
+reaction-path sampling (:class:`AFIRBias`, :func:`run_afir`). The
 :mod:`~torch_sim.enhanced_sampling.boxed_md` module implements boxed MD in energy
 space (BXDE), and :mod:`~torch_sim.enhanced_sampling.loxodynamics` implements the
 skewness-guided latent-space Loxodynamics method.
 """
 
+from torch_sim.enhanced_sampling.afir import (
+    AFIRBias,
+    AFIRController,
+    AFIRResult,
+    AFIRTargets,
+    run_afir,
+)
 from torch_sim.enhanced_sampling.boxed_md import BoxedMD, run_boxed_md, velocity_inversion
 from torch_sim.enhanced_sampling.history import History
 from torch_sim.enhanced_sampling.loxodynamics import (
@@ -33,6 +42,10 @@ from torch_sim.enhanced_sampling.skewencoder import (
 
 __all__ = [
     "RMSDCV",
+    "AFIRBias",
+    "AFIRController",
+    "AFIRResult",
+    "AFIRTargets",
     "BoxedMD",
     "DescriptorNormalizer",
     "History",
@@ -46,6 +59,7 @@ __all__ = [
     "SkewencoderConfig",
     "SkewencoderTrainer",
     "SkewencoderTrainingReport",
+    "run_afir",
     "run_boxed_md",
     "run_loxodynamics",
     "velocity_inversion",
