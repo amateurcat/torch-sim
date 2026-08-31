@@ -1,7 +1,7 @@
 """TorchSim package base module."""
 
 import os
-from importlib.metadata import version
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 
 import torch_sim._duecredit
@@ -109,7 +109,12 @@ SCRIPTS_DIR = f"{ROOT}/examples"
 TORCH_SIM_CONFIG_DIR = Path.home() / ".torchsim"
 TORCH_SIM_CONFIG_DIR.mkdir(parents=True, exist_ok=True)
 
-__version__ = version("torch-sim-atomistic")
+try:
+    __version__ = version("torch-sim-atomistic")
+except PackageNotFoundError:
+    # Running from a source checkout (e.g. a git submodule on sys.path)
+    # without an installed distribution to read metadata from.
+    __version__ = "0.0.0+unknown"
 __all__ = [
     "CELL_FILTER_REGISTRY",
     "INTEGRATOR_REGISTRY",
